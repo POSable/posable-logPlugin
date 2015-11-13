@@ -1,10 +1,26 @@
-var LogPlugin = function(){
+var LogPlugin = function() {
     this.fileLogger = '';
     this.msgLogger = '';
     this.level = '';
 };
 
-LogPlugin.prototype.info = function(msg){
+LogPlugin.prototype.fatal = function(msg) {
+    if (this.fileLogger) {
+        this.fileLogger.fatal(msg); }
+
+    if (this.msgLogger && this.level >= this.logLevels.fatal) {
+        this.msgLogger.addLogEntry(msg); }
+};
+
+LogPlugin.prototype.error = function(msg) {
+    if (this.fileLogger) {
+        this.fileLogger.error(msg); }
+
+    if (this.msgLogger && this.level >= this.logLevels.error) {
+        this.msgLogger.addLogEntry(msg); }
+};
+
+LogPlugin.prototype.info = function(msg) {
     if (this.fileLogger) {
         this.fileLogger.info(msg); }
 
@@ -12,11 +28,19 @@ LogPlugin.prototype.info = function(msg){
         this.msgLogger.addLogEntry(msg); }
 };
 
-LogPlugin.prototype.setFileLogger = function(bunyanLogger){
+LogPlugin.prototype.debug = function(msg) {
+    if (this.fileLogger) {
+        this.fileLogger.debug(msg); }
+
+    if (this.msgLogger && this.level >= this.logLevels.debug) {
+        this.msglogger.addLogEntry(msg); }
+};
+
+LogPlugin.prototype.setFileLogger = function(bunyanLogger) {
     this.fileLogger = bunyanLogger;
 };
 
-LogPlugin.prototype.setMsgLogger = function(wascallyClient, level){
+LogPlugin.prototype.setMsgLogger = function(wascallyClient, level) {
     this.msgLogger = wascallyClient;
     this.level = level;
 };
