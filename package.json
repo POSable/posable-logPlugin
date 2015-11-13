@@ -1,0 +1,22 @@
+{
+  "name": "posable-logging-plugin",
+  "version": "1.0.0",
+  "description": "logging plugin with bunyan/wascally/posable",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/POSable/posable-loggingPlugin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/POSable/posable-loggingPlugin/issues"
+  },
+  "homepage": "https://github.com/POSable/posable-loggingPlugin#readme",
+  "devDependencies": {
+    "jasmine": "^2.3.2"
+  }
+}
