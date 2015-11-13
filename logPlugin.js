@@ -4,12 +4,23 @@ var LogPlugin = function() {
     this.level = '';
 };
 
+LogPlugin.prototype.sendMsg = function(msg){
+    if (this.msgLogger && (typeof(msg) == 'string')) {
+        var stack = '';
+        this.msgLogger.addLogEntry(this.level, msg, stack);
+    }
+
+    if (this.msgLogger && (typeof(msg) == 'object')) {
+        this.msgLogger.addLogEntry(this.level, msg.message, msg.stack);
+    }
+};
+
 LogPlugin.prototype.fatal = function(msg) {
     if (this.fileLogger) {
         this.fileLogger.fatal(msg); }
 
     if (this.msgLogger && this.level >= this.logLevels.fatal) {
-        this.msgLogger.addLogEntry(msg); }
+        this.sendMsg(msg); }
 };
 
 LogPlugin.prototype.error = function(msg) {
@@ -17,7 +28,7 @@ LogPlugin.prototype.error = function(msg) {
         this.fileLogger.error(msg); }
 
     if (this.msgLogger && this.level >= this.logLevels.error) {
-        this.msgLogger.addLogEntry(msg); }
+        this.sendMsg(msg); }
 };
 
 LogPlugin.prototype.info = function(msg) {
@@ -25,7 +36,7 @@ LogPlugin.prototype.info = function(msg) {
         this.fileLogger.info(msg); }
 
     if (this.msgLogger && this.level >= this.logLevels.info) {
-        this.msgLogger.addLogEntry(msg); }
+        this.sendMsg(msg); }
 };
 
 LogPlugin.prototype.debug = function(msg) {
@@ -33,7 +44,8 @@ LogPlugin.prototype.debug = function(msg) {
         this.fileLogger.debug(msg); }
 
     if (this.msgLogger && this.level >= this.logLevels.debug) {
-        this.msglogger.addLogEntry(msg); }
+        console.log(msg);
+        this.sendMsg(msg); }
 };
 
 LogPlugin.prototype.setFileLogger = function(bunyanLogger) {
