@@ -5,14 +5,12 @@ var LogPlugin = function() {
 };
 
 LogPlugin.prototype.sendMsg = function(msg){
-    if (this.msgLogger && (typeof(msg) == 'string')) {
+    if (typeof(msg) == 'string') {
         var stack = '';
-        this.msgLogger.addLogEntry(this.level, msg, stack);
-    }
+        this.msgLogger.addLogEntry(this.level, msg, stack); }
 
-    if (this.msgLogger && (typeof(msg) == 'object')) {
-        this.msgLogger.addLogEntry(this.level, msg.message, msg.stack);
-    }
+    if (typeof(msg) == 'object') {
+        this.msgLogger.addLogEntry(this.level, msg.message, msg.stack); }
 };
 
 LogPlugin.prototype.fatal = function(msg) {
