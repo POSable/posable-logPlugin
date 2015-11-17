@@ -1,19 +1,49 @@
-describe('log messages', function(){
+describe('Log plugin -', function() {
+    var LogPlugin = require('../logPlugin');
+    var logPlugin = new LogPlugin;
+    var testMessage = {};
 
+    describe('info logs', function() {
+        beforeEach(function() {
+            logPlugin.level = 30;
+            logPlugin.fileLogger.level = 30;
+            logPlugin.fileLogger.info = function() {};
+            logPlugin.msgLogger.addLogEntry = function() {};
 
-    it('tests', function(){
-        expect(1).toBe(1);
+            spyOn(logPlugin.fileLogger, 'info');
+            spyOn(logPlugin.msgLogger, 'addLogEntry');
+        });
+
+        it('should be written to disk', function() {
+            logPlugin.info(testMessage);
+            expect(logPlugin.fileLogger.info).toHaveBeenCalled(); });
+
+        it('should be sent to wascally wrapper', function() {
+            logPlugin.sendMsg(testMessage);
+            expect(logPlugin.msgLogger.addLogEntry).toHaveBeenCalled(); });
     });
 
+    describe('lower priority logs', function() {
+        beforeEach(function() {
+            logPlugin.fileLogger.debug = function() {};
+            logPlugin.sendMsg = function() {};
 
-    //beforeEach(function(){
-    //    var logObject = {
-    //        "name":"timecheck",
-    //        "hostname":"Nicks-MacBook-Air.local",
-    //        "pid":55440,
-    //        "level":30,
-    //        "msg":"User requested time: 10:58:3",
-    //        "time":"2015-09-28T16:58:04.338Z","v":0 } });
+            spyOn(logPlugin.fileLogger, 'debug');
+            spyOn(logPlugin, 'sendMsg');
+        });
 
+        it('should NOT write to disk', function() {
+            logPlugin.level = 30;
+            logPlugin.fileLogger.level = 40;
+            logPlugin.debug(testMessage);
+            expect(logPlugin.fileLogger.debug).not.toHaveBeenCalled(); });
+
+        it('should NOT be sent to wascally wrapper', function() {
+            logPlugin.level = 10;
+            logPlugin.debug(testMessage);
+            expect(logPlugin.sendMsg).not.toHaveBeenCalled();
+        });
+
+    });
 
 });

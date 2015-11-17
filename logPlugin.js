@@ -1,7 +1,7 @@
 var LogPlugin = function() {
-    this.fileLogger = '';
-    this.msgLogger = '';
-    this.level = '';
+    this.fileLogger = {};
+    this.msgLogger = {};
+    this.level = {};
 };
 
 LogPlugin.prototype.sendMsg = function(msg){
@@ -13,28 +13,28 @@ LogPlugin.prototype.sendMsg = function(msg){
         this.msgLogger.addLogEntry(this.level, msg.message, msg.stack); } };
 
 LogPlugin.prototype.fatal = function(msg) {
-    if (this.fileLogger) {
+    if (this.fileLogger && this.level >= this.fileLogger.level) {
         this.fileLogger.fatal(msg); }
 
     if (this.msgLogger && this.level >= this.logLevels.fatal) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.error = function(msg) {
-    if (this.fileLogger) {
+    if (this.fileLogger && this.level >= this.fileLogger.level) {
         this.fileLogger.error(msg); }
 
     if (this.msgLogger && this.level >= this.logLevels.error) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.info = function(msg) {
-    if (this.fileLogger) {
+    if (this.fileLogger && this.level >= this.fileLogger.level) {
         this.fileLogger.info(msg); }
 
     if (this.msgLogger && this.level >= this.logLevels.info) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.debug = function(msg) {
-    if (this.fileLogger) {
+    if (this.fileLogger && this.level >= this.fileLogger.level) {
         this.fileLogger.debug(msg); }
 
     if (this.msgLogger && this.level >= this.logLevels.debug) {
