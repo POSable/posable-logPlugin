@@ -32,14 +32,8 @@ describe('Log plugin -', function() {
             spyOn(logPlugin, 'sendMsg');
         });
 
-        it('should NOT write to disk', function() {
-            logPlugin.level = 30;
-            logPlugin.fileLogger.level = 40;
-            logPlugin.debug(testMessage);
-            expect(logPlugin.fileLogger.debug).not.toHaveBeenCalled(); });
-
         it('should NOT be sent to wascally wrapper', function() {
-            logPlugin.level = 10;
+            logPlugin.level = 40;
             logPlugin.debug(testMessage);
             expect(logPlugin.sendMsg).not.toHaveBeenCalled();
         });
