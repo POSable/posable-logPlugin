@@ -1,6 +1,5 @@
 describe('Log plugin -', function() {
-    var LogPlugin = require('../logPlugin');
-    var logPlugin = new LogPlugin;
+    var logPlugin = require('../index');
     var testMessage = {};
 
     describe('info logs', function() {

@@ -14,6 +14,7 @@ LogPlugin.prototype.sendMsg = function(msg){
 
 LogPlugin.prototype.fatal = function(msg) {
     if (this.fileLogger) {
+        console.log(msg);
         this.fileLogger.fatal(msg); }
 
     if (this.msgLogger && this.level <= this.logLevels.fatal) {
@@ -21,6 +22,7 @@ LogPlugin.prototype.fatal = function(msg) {
 
 LogPlugin.prototype.error = function(msg) {
     if (this.fileLogger) {
+        console.log(msg);
         this.fileLogger.error(msg); }
 
     if (this.msgLogger && this.level <= this.logLevels.error) {
@@ -28,6 +30,7 @@ LogPlugin.prototype.error = function(msg) {
 
 LogPlugin.prototype.info = function(msg) {
     if (this.fileLogger) {
+        console.log(msg);
         this.fileLogger.info(msg); }
 
     if (this.msgLogger && this.level <= this.logLevels.info) {
@@ -51,4 +54,4 @@ LogPlugin.prototype.setMsgLogger = function(wascallyClient, level) {
 LogPlugin.prototype.logLevels = { fatal: 60, error: 50, warn: 40, info: 30, debug: 20, trace: 10 };
 
 
-module.exports = LogPlugin;
+module.exports = new LogPlugin();
