@@ -10,7 +10,11 @@ describe('Log plugin -', function() {
             logPlugin.msgLogger.addLogEntry = function() {};
 
             spyOn(logPlugin.fileLogger, 'info');
-            spyOn(logPlugin.msgLogger, 'addLogEntry');
+            spyOn(logPlugin.msgLogger, 'addLogEntry').and.callFake(function () {
+                return {
+                    catch: function (error) {
+                        return error; } };
+            });
         });
 
         it('should be written to disk', function() {
