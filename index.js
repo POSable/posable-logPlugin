@@ -7,10 +7,15 @@ function LogPlugin () {
 LogPlugin.prototype.sendMsg = function(msg){
     if (typeof(msg) == 'string') {
         var stack = '';
-        this.msgLogger.addLogEntry(this.level, msg, stack); }
+        this.msgLogger.addLogEntry(this.level, msg, stack).catch(function(error) {
+            this.fileLogger.error(error);
+        }); }
 
     if (typeof(msg) == 'object') {
-        this.msgLogger.addLogEntry(this.level, msg.message, msg.stack); } };
+        this.msgLogger.addLogEntry(this.level, msg.message, msg.stack).catch(function(error) {
+            this.fileLogger.error(error);
+        }); }
+};
 
 LogPlugin.prototype.fatal = function(msg) {
     if (this.fileLogger) {
