@@ -1,7 +1,7 @@
 function LogPlugin () {
-    this.fileLogger = {};
-    this.msgLogger = {};
-    this.level = {};
+    this.fileLogger = null;
+    this.msgLogger = null;
+    this.level = null;
 }
 
 LogPlugin.prototype.sendMsg = function(msg){
