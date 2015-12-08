@@ -1,7 +1,7 @@
 function LogPlugin () {
-    this.fileLogger = null;
-    this.msgLogger = null;
-    this.level = null;
+    this.fileLogger = {};
+    this.msgLogger = {};
+    this.level = {};
 }
 
 LogPlugin.prototype.sendMsg = function(msg){
@@ -18,32 +18,32 @@ LogPlugin.prototype.sendMsg = function(msg){
 };
 
 LogPlugin.prototype.fatal = function(msg) {
-    if (this.fileLogger) {
+    if (this.fileLogger !== {}) {
         this.fileLogger.fatal(msg); }
 
-    if (this.msgLogger && this.level <= this.logLevels.fatal) {
+    if (this.msgLogger !== {} && this.level <= this.logLevels.fatal) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.error = function(msg) {
-    if (this.fileLogger) {
+    if (this.fileLogger !== {}) {
         this.fileLogger.error(msg); }
 
-    if (this.msgLogger && this.level <= this.logLevels.error) {
+    if (this.msgLogger !== {} && this.level <= this.logLevels.error) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.info = function(msg) {
-    if (this.fileLogger) {
+    if (this.fileLogger !== {}) {
         this.fileLogger.info(msg); }
 
-    if (this.msgLogger && this.level <= this.logLevels.info) {
+    if (this.msgLogger !== {} && this.level <= this.logLevels.info) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.debug = function(msg) {
-    if (this.fileLogger) {
+    if (this.fileLogger !== {}) {
         console.log(msg);
         this.fileLogger.debug(msg); }
 
-    if (this.msgLogger && this.level <= this.logLevels.debug) {
+    if (this.msgLogger !== {} && this.level <= this.logLevels.debug) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.setFileLogger = function(bunyanLogger) {
