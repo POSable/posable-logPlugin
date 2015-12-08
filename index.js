@@ -4,6 +4,8 @@ function LogPlugin () {
     this.level = {};
 }
 
+function isEmpty (obj) { return Object.keys(obj).length == 0; }
+
 LogPlugin.prototype.sendMsg = function(msg){
     if (typeof(msg) == 'string') {
         var stack = '';
@@ -18,32 +20,32 @@ LogPlugin.prototype.sendMsg = function(msg){
 };
 
 LogPlugin.prototype.fatal = function(msg) {
-    if (this.fileLogger !== {}) {
+    if (!isEmpty(this.fileLogger)) {
         this.fileLogger.fatal(msg); }
 
-    if (this.msgLogger !== {} && this.level <= this.logLevels.fatal) {
+    if (!isEmpty(this.msgLogger) && this.level <= this.logLevels.fatal) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.error = function(msg) {
-    if (this.fileLogger !== {}) {
+    if (!isEmpty(this.fileLogger)) {
         this.fileLogger.error(msg); }
 
-    if (this.msgLogger !== {} && this.level <= this.logLevels.error) {
+    if (!isEmpty(this.msgLogger) && this.level <= this.logLevels.error) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.info = function(msg) {
-    if (this.fileLogger !== {}) {
+    if (!isEmpty(this.fileLogger)) {
         this.fileLogger.info(msg); }
 
-    if (this.msgLogger !== {} && this.level <= this.logLevels.info) {
+    if (!isEmpty(this.msgLogger) && this.level <= this.logLevels.info) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.debug = function(msg) {
-    if (this.fileLogger !== {}) {
+    if (!isEmpty(this.fileLogger)) {
         console.log(msg);
         this.fileLogger.debug(msg); }
 
-    if (this.msgLogger !== {} && this.level <= this.logLevels.debug) {
+    if (!isEmpty(this.msgLogger) && this.level <= this.logLevels.debug) {
         this.sendMsg(msg); } };
 
 LogPlugin.prototype.setFileLogger = function(bunyanLogger) {
