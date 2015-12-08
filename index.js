@@ -28,6 +28,7 @@ LogPlugin.prototype.fatal = function(msg) {
 
 LogPlugin.prototype.error = function(msg) {
     if (!isEmpty(this.fileLogger)) {
+        console.log(msg);
         this.fileLogger.error(msg); }
 
     if (!isEmpty(this.msgLogger) && this.level <= this.logLevels.error) {
